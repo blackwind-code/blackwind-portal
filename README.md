@@ -6,7 +6,7 @@ and add devices to our VPN system through this portal
 # Reference
 [Pocket Base Doc](https://pocketbase.io/docs/)
 
-# Install
+# Install & Run
 ```bash
 git clone https://github.com/blackwind-code/blackwind-portal.git
 cd blackwind-portal/cmd/blackwind-portal
