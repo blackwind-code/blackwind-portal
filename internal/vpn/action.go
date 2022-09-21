@@ -24,7 +24,7 @@ func DeviceBeforeCreate(e *core.ModelEvent) error {
 				return hook.StopPropagation
 			}
 
-			URL := VPN_DRIVER_URL + "/api/vpn/device"
+			URL := VPN_DRIVER_URL + "/api/zerotier/device"
 			req, err := http.NewRequest("POST", URL, bytes.NewBuffer(reqPayload))
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
@@ -76,7 +76,7 @@ func DeviceBeforeUpdate(e *core.ModelEvent) error {
 				return hook.StopPropagation
 			}
 
-			URL := VPN_DRIVER_URL + "/api/vpn/device"
+			URL := VPN_DRIVER_URL + "/api/zerotier/device"
 			req, err := http.NewRequest("PUT", URL, bytes.NewBuffer(reqPayload))
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
@@ -121,7 +121,7 @@ func DeviceBeforeDelete(e *core.ModelEvent) error {
 				return hook.StopPropagation
 			}
 
-			URL := VPN_DRIVER_URL + "/api/vpn/device"
+			URL := VPN_DRIVER_URL + "/api/zerotier/device"
 			req, err := http.NewRequest("DELETE", URL, bytes.NewBuffer(reqPayload))
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
