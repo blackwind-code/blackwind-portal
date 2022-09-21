@@ -1,6 +1,8 @@
 package users
 
 import (
+	"fmt"
+
 	"github.com/pocketbase/pocketbase/core"
 )
 
@@ -11,6 +13,9 @@ func UserBeforeCreate(e *core.UserCreateEvent) error {
 
 func UserBeforeUpdate(e *core.UserUpdateEvent) error {
 	// call driver to update user
+	oldEmail, _ := APP.Dao().FindUserById(e.User.Id)
+	fmt.Println("Old Email: " + oldEmail.Email)
+	fmt.Println("New Email: " + e.User.Email)
 	return nil
 }
 

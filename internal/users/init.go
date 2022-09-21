@@ -11,8 +11,12 @@ var OPENSTACK_DRIVER_ADDR string
 var OPENSTACK_DRIVER_SECRET string
 var Log *log.Logger
 
+var APP *pocketbase.PocketBase
+
 func Init(app *pocketbase.PocketBase) {
 	Log = log.New(os.Stdout, "[user]", log.Ldate|log.Ltime|log.Llongfile)
+
+	APP = app
 
 	OPENSTACK_DRIVER_ADDR = os.Getenv("OPENSTACK_DRIVER_ADDR")
 	OPENSTACK_DRIVER_SECRET = os.Getenv("OPENSTACK_DRIVER_SECRET")
