@@ -9,13 +9,15 @@ import (
 	"github.com/pocketbase/pocketbase"
 )
 
+var SECRET string
+
 func getApp() *pocketbase.PocketBase {
 	app := pocketbase.New()
 
-	secret := os.Getenv("SECRET")
+	SECRET = os.Getenv("SECRET")
 
-	users.Init(app, secret)
-	vpn.Init(app, secret)
+	users.Init(app, SECRET)
+	vpn.Init(app, SECRET)
 
 	return app
 }

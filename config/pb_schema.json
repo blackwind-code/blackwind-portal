@@ -107,8 +107,8 @@
         }
       },
       {
-        "id": "bk4f2pve",
-        "name": "ipv4_address",
+        "id": "sc2lvmdf",
+        "name": "description",
         "type": "text",
         "system": false,
         "required": false,
@@ -116,7 +116,7 @@
         "options": {
           "min": null,
           "max": null,
-          "pattern": "^((25[0-5]|(2[0-4]|1\\d|[1-9]|)\\d)\\.?\\b){4}$"
+          "pattern": ""
         }
       }
     ]
