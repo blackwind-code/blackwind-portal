@@ -7,19 +7,20 @@ import (
 	"github.com/pocketbase/pocketbase"
 )
 
-var OPENSTACK_DRIVER_ADDR string
-var OPENSTACK_DRIVER_SECRET string
+var OPENSTACK_DRIVER_URL string
+var SECRET string
+
 var Log *log.Logger
 
 var APP *pocketbase.PocketBase
 
-func Init(app *pocketbase.PocketBase) {
+func Init(app *pocketbase.PocketBase, secret string) {
 	Log = log.New(os.Stdout, "[user]", log.Ldate|log.Ltime|log.Llongfile)
 
 	APP = app
+	SECRET = secret
 
-	OPENSTACK_DRIVER_ADDR = os.Getenv("OPENSTACK_DRIVER_ADDR")
-	OPENSTACK_DRIVER_SECRET = os.Getenv("OPENSTACK_DRIVER_SECRET")
+	OPENSTACK_DRIVER_URL = os.Getenv("OPENSTACK_DRIVER_URL")
 
 	/*{
 		req, err := http.NewRequest("GET", OPENSTACK_DRIVER_ADDR, nil)

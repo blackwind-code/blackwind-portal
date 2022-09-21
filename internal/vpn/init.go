@@ -7,14 +7,20 @@ import (
 	"github.com/pocketbase/pocketbase"
 )
 
-var VPN_DRIVER_ADDR string
-var VPN_DRIVER_SECRET string
+var VPN_DRIVER_URL string
+var SECRET string
+
 var Log *log.Logger
 
-func Init(app *pocketbase.PocketBase) {
+var APP *pocketbase.PocketBase
 
-	VPN_DRIVER_ADDR = os.Getenv("VPN_DRIVER_ADDR")
-	VPN_DRIVER_SECRET = os.Getenv("VPN_DRIVER_SECRET")
+func Init(app *pocketbase.PocketBase, secret string) {
+	Log = log.New(os.Stdout, "[vpn]", log.Ldate|log.Ltime|log.Llongfile)
+
+	VPN_DRIVER_URL = os.Getenv("VPN_DRIVER_URL")
+	SECRET = secret
+
+	APP = app
 
 	/*{
 		req, err := http.NewRequest("GET", VPN_DRIVER_ADDR, nil)
