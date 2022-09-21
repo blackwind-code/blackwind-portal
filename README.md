@@ -14,7 +14,7 @@ cd blackwind-portal/cmd/blackwind-portal
 go build main.go
 ```  
 - You need golang installed on your system  
-- You need [blackwind-portal-driver] up and running
+- You need [blackwind-portal-driver](https://github.com/blackwind-code/blackwind-portal-driver) up and running
 
 # Run
 ```bash
