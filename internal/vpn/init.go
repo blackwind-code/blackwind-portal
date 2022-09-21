@@ -1,7 +1,9 @@
 package vpn
 
 import (
+	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/pocketbase/pocketbase"
@@ -22,12 +24,12 @@ func Init(app *pocketbase.PocketBase, secret string) {
 
 	APP = app
 
-	/*{
-		req, err := http.NewRequest("GET", VPN_DRIVER_ADDR, nil)
+	{
+		req, err := http.NewRequest("GET", VPN_DRIVER_URL+"/ping", nil)
 		if err != nil {
 			Log.Fatalf("Cannot connect to driver: %v\n", err)
 		}
-		req.Header.Add("X-Auth-Token", VPN_DRIVER_SECRET)
+		req.Header.Add("X-Auth-Token", SECRET)
 
 		client := &http.Client{}
 		resp, err := client.Do(req)
@@ -42,7 +44,7 @@ func Init(app *pocketbase.PocketBase, secret string) {
 		if string(data) != "pong" {
 			Log.Fatalf("Driver ping-pong failed: %s\n", string(data))
 		}
-	}*/
+	}
 
 	app.OnModelBeforeCreate().Add(DeviceBeforeCreate)
 	app.OnModelBeforeUpdate().Add(DeviceBeforeUpdate)

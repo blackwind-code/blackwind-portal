@@ -1,7 +1,9 @@
 package users
 
 import (
+	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 
 	"github.com/pocketbase/pocketbase"
@@ -22,12 +24,12 @@ func Init(app *pocketbase.PocketBase, secret string) {
 
 	OPENSTACK_DRIVER_URL = os.Getenv("OPENSTACK_DRIVER_URL")
 
-	/*{
-		req, err := http.NewRequest("GET", OPENSTACK_DRIVER_ADDR, nil)
+	{
+		req, err := http.NewRequest("GET", OPENSTACK_DRIVER_URL+"/ping", nil)
 		if err != nil {
 			Log.Fatalf("Cannot connect to driver: %v\n", err)
 		}
-		req.Header.Add("X-Auth-Token", OPENSTACK_DRIVER_SECRET)
+		req.Header.Add("X-Auth-Token", SECRET)
 
 		client := &http.Client{}
 		resp, err := client.Do(req)
@@ -42,7 +44,7 @@ func Init(app *pocketbase.PocketBase, secret string) {
 		if string(data) != "pong" {
 			Log.Fatalf("Driver ping-pong failed: %s\n", string(data))
 		}
-	}*/
+	}
 
 	app.OnUserBeforeCreateRequest().Add(UserBeforeCreate)
 	app.OnUserBeforeUpdateRequest().Add(UserBeforeUpdate)
