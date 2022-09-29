@@ -33,26 +33,6 @@
           "max": null,
           "pattern": ""
         }
-      },
-      {
-        "id": "pbfieldavatar",
-        "name": "avatar",
-        "type": "file",
-        "system": false,
-        "required": false,
-        "unique": false,
-        "options": {
-          "maxSelect": 1,
-          "maxSize": 5242880,
-          "mimeTypes": [
-            "image/jpg",
-            "image/jpeg",
-            "image/png",
-            "image/svg+xml",
-            "image/gif"
-          ],
-          "thumbs": null
-        }
       }
     ]
   },
@@ -60,11 +40,11 @@
     "id": "zse0divyaeo360f",
     "name": "vpn",
     "system": false,
-    "listRule": "@request.user.verified = \"true\" && @request.user.id = @collection.vpn.user",
-    "viewRule": "@request.user.verified = \"true\" && @request.user.id = @collection.vpn.user",
-    "createRule": "@request.user.verified = \"true\"",
-    "updateRule": "@request.user.verified = \"true\" && @request.user.id = @collection.vpn.user",
-    "deleteRule": "@request.user.verified = \"true\" && @request.user.id = @collection.vpn.user",
+    "listRule": "@request.user.verified = true && @request.user.id = user",
+    "viewRule": "@request.user.verified = true && @request.user.id = user",
+    "createRule": "@request.user.verified = true",
+    "updateRule": "@request.user.verified = true && @request.user.id = user && @request.data.zerotier_address = zerotier_address",
+    "deleteRule": "@request.user.verified = true && @request.user.id = user",
     "schema": [
       {
         "id": "5emnrjwc",
