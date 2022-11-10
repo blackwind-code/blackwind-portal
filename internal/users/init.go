@@ -48,5 +48,6 @@ func Init(app *pocketbase.PocketBase, secret string) {
 
 	app.OnUserBeforeCreateRequest().Add(UserBeforeCreate)
 	app.OnUserBeforeUpdateRequest().Add(UserBeforeUpdate)
+	app.OnModelBeforeUpdate().Add(UserBeforePasswordReset)
 	app.OnUserBeforeDeleteRequest().Add(UserBeforeDelete)
 }
