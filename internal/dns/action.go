@@ -16,7 +16,9 @@ func DNSBeforeCreate(e *core.ModelEvent) error {
 		if record, ok := e.Model.(*models.Record); ok && record.Collection().Name == "dns" {
 			url := "https://api.cloudflare.com/client/v4/zones/" + DOMAIN_ZONE_IDENTIFIER + "/dns_records"
 
+			var pData DNS_Record
 			var p DNS_Record_Create
+			p.DNS_Record = &pData
 
 			p.Comment = record.GetStringDataValue("email") + ";" + record.GetStringDataValue("description")
 			p.Type = "A"
