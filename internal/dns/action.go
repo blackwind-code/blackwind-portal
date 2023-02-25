@@ -45,11 +45,13 @@ func DNSBeforeCreate(e *core.ModelEvent) error {
 			req.Header.Add("X-Auth-Key", CLOUDFLARE_GLOBAL_KEY)
 
 			res, err := http.DefaultClient.Do(req)
+			Log.Println("Sent req to Cloudflare DNS")
 
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
 				return hook.StopPropagation
 			}
+			Log.Println("Got res from Cloudflare DNS")
 
 			defer res.Body.Close()
 			if res.StatusCode != 200 {
@@ -63,6 +65,7 @@ func DNSBeforeCreate(e *core.ModelEvent) error {
 			if err := json.Unmarshal(body, &jsonBody); err != nil {
 				Log.Printf("Error: %v\n", err)
 			}
+			Log.Printf("CF Res: %v\n", jsonBody)
 			record.SetDataValue("cloudflare_record_id", jsonBody.Result.Id)
 			return nil
 		}
