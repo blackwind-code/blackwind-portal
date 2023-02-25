@@ -5,8 +5,6 @@ type DNS_Record_Create struct {
 }
 
 type DNS_Record_Update struct {
-	Comment string `json: "comment,omitempty"`
-	Content string `json: "content,omitempty"`
+	Comment string `json:"comment,omitempty"`
+	Content string `json:"content,omitempty"`
 }
-
-
