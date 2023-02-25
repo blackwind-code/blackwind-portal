@@ -6,6 +6,7 @@ import (
 
 	"github.com/blackwind-code/blackwind-portal/internal/users"
 	"github.com/blackwind-code/blackwind-portal/internal/vpn"
+	"github.com/blackwind-code/blackwind-portal/internal/dns"
 	"github.com/pocketbase/pocketbase"
 	"github.com/pocketbase/pocketbase/apis"
 	"github.com/pocketbase/pocketbase/core"
@@ -20,6 +21,7 @@ func getApp() *pocketbase.PocketBase {
 
 	users.Init(app, SECRET)
 	vpn.Init(app, SECRET)
+	dns.Init(app, SECRET)
 
 	app.OnBeforeServe().Add(func(e *core.ServeEvent) error {
 		// serves static files from the provided public dir (if exists)

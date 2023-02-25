@@ -23,6 +23,10 @@ export SECRET=<secret-password>
 export VPN_DRIVER_URL=<blackwind-portal-driver-ip:port>
 export OPENSTACK_DRIVER_URL=<blackwind-portal-driver-ip:port>
 
+export CLOUDFLARE_X_AUTH_EMAIL=<cloudflare-email>
+export CLOUDFLARE_GLOBAL_KEY=<cloudflare-global-api-key>
+export DOMAIN_ZONE_IDENTIFIER=<cloudflare-dgist.cloud-zxone-id>
+
 cd blackwind-portal/cmd/blackwind-portal/
 ./main serve
 ```
