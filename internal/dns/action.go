@@ -12,10 +12,13 @@ import (
 )
 
 func DNSBeforeCreate(e *core.ModelEvent) error {
+	Log.Println("Entered function")
 	if e.Model.TableName() == "dns" {
+		Log.Println("First check passed")
 		if record, ok := e.Model.(*models.Record); ok && record.Collection().Name == "dns" {
-			url := "https://api.cloudflare.com/client/v4/zones/"+DOMAIN_ZONE_IDENTIFIER+"/dns_records"
-			
+			Log.Println("Second check passed")
+			url := "https://api.cloudflare.com/client/v4/zones/" + DOMAIN_ZONE_IDENTIFIER + "/dns_records"
+
 			var p DNS_Record_Create
 
 			p.Comment = record.GetStringDataValue("email") + ";" + record.GetStringDataValue("description")
@@ -25,7 +28,7 @@ func DNSBeforeCreate(e *core.ModelEvent) error {
 			p.Priority = 10
 			p.Proxied = false
 			p.Tags = []string{}
-			p.TTL = 3600
+			p.TTL = 300
 
 			reqPayload, err := json.Marshal(p)
 			if err != nil {
@@ -39,13 +42,14 @@ func DNSBeforeCreate(e *core.ModelEvent) error {
 				Log.Printf("Error: %v\n", err.Error())
 				return hook.StopPropagation
 			}
-		
+
 			req.Header.Add("Content-Type", "application/json")
 			req.Header.Add("X-Auth-Email", CLOUDFLARE_X_AUTH_EMAIL)
 			req.Header.Add("X-Auth-Key", CLOUDFLARE_GLOBAL_KEY)
-		
+
 			res, err := http.DefaultClient.Do(req)
-			
+			Log.Println("Req sent to cloudflare")
+
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
 				return hook.StopPropagation
@@ -80,7 +84,7 @@ func DNSBeforeUpdate(e *core.ModelEvent) error {
 			p.Comment = record.GetStringDataValue("email") + ";" + record.GetStringDataValue("description")
 			p.Content = record.GetStringDataValue("ip")
 
-			url := "https://api.cloudflare.com/client/v4/zones/"+DOMAIN_ZONE_IDENTIFIER+"/dns_records/" + record.GetStringDataValue("cloudflare_record_id")
+			url := "https://api.cloudflare.com/client/v4/zones/" + DOMAIN_ZONE_IDENTIFIER + "/dns_records/" + record.GetStringDataValue("cloudflare_record_id")
 
 			reqPayload, err := json.Marshal(p)
 			if err != nil {
@@ -94,13 +98,13 @@ func DNSBeforeUpdate(e *core.ModelEvent) error {
 				Log.Printf("Error: %v\n", err.Error())
 				return hook.StopPropagation
 			}
-		
+
 			req.Header.Add("Content-Type", "application/json")
 			req.Header.Add("X-Auth-Email", CLOUDFLARE_X_AUTH_EMAIL)
 			req.Header.Add("X-Auth-Key", CLOUDFLARE_GLOBAL_KEY)
-		
+
 			res, err := http.DefaultClient.Do(req)
-			
+
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
 				return hook.StopPropagation
@@ -124,7 +128,7 @@ func DNSBeforeDelete(e *core.ModelEvent) error {
 	if e.Model.TableName() == "dns" {
 		if record, ok := e.Model.(*models.Record); ok && record.Collection().Name == "dns" {
 
-			url := "https://api.cloudflare.com/client/v4/zones/"+DOMAIN_ZONE_IDENTIFIER+"/dns_records/" + record.GetStringDataValue("cloudflare_record_id")
+			url := "https://api.cloudflare.com/client/v4/zones/" + DOMAIN_ZONE_IDENTIFIER + "/dns_records/" + record.GetStringDataValue("cloudflare_record_id")
 
 			req, err := http.NewRequest("DELETE", url, nil)
 
@@ -132,13 +136,13 @@ func DNSBeforeDelete(e *core.ModelEvent) error {
 				Log.Printf("Error: %v\n", err.Error())
 				return hook.StopPropagation
 			}
-		
+
 			req.Header.Add("Content-Type", "application/json")
 			req.Header.Add("X-Auth-Email", CLOUDFLARE_X_AUTH_EMAIL)
 			req.Header.Add("X-Auth-Key", CLOUDFLARE_GLOBAL_KEY)
-		
+
 			res, err := http.DefaultClient.Do(req)
-			
+
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
 				return hook.StopPropagation
