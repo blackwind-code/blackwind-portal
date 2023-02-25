@@ -12,11 +12,8 @@ import (
 )
 
 func DNSBeforeCreate(e *core.ModelEvent) error {
-	Log.Println("Entered function")
 	if e.Model.TableName() == "dns" {
-		Log.Println("First check passed")
 		if record, ok := e.Model.(*models.Record); ok && record.Collection().Name == "dns" {
-			Log.Println("Second check passed")
 			url := "https://api.cloudflare.com/client/v4/zones/" + DOMAIN_ZONE_IDENTIFIER + "/dns_records"
 
 			var p DNS_Record_Create
@@ -48,7 +45,6 @@ func DNSBeforeCreate(e *core.ModelEvent) error {
 			req.Header.Add("X-Auth-Key", CLOUDFLARE_GLOBAL_KEY)
 
 			res, err := http.DefaultClient.Do(req)
-			Log.Println("Req sent to cloudflare")
 
 			if err != nil {
 				Log.Printf("Error: %v\n", err.Error())
